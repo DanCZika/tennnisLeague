@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row row mt-5">
+	<h1>Aberdeen tenis league Rules</h1>
+</div>
+<div class="row">
+	<h2>IMPORTANT TO NOTE FOR ALL PLAYERS</h2>
+
+
+	<ul><li aria-level="1" dir="ltr">
+	<p dir="ltr" role="presentation"><span style="font-size:20px;">Matches are self-umpired and should be conducted in the spirit of fair play.</span></p>
+	</li>
+	<li aria-level="1" dir="ltr">
+	<p dir="ltr" role="presentation"><span style="font-size:20px;">No one at this site or connected with the League can take responsibility for the safety or security of players whether playing on the courts or in the facilities associated with the Leagues, or elsewhere.</span></p>
+	</li>
+	<li aria-level="1" dir="ltr">
+	<p dir="ltr" role="presentation"><span style="font-size:20px;">Players compete at their own risk and it is the player's responsibility to ensure any courts used are safe for play.</span></p>
+	</li>
+	<li aria-level="1" dir="ltr">
+	<p dir="ltr" role="presentation"><span style="font-size:20px;">Players are solely responsible for court hire and equipment provision.</span></p>
+	</li>
+	<li aria-level="1" dir="ltr">
+	<p dir="ltr" role="presentation"><span style="font-size:20px;">Players must be 18 or older on the start day of a Round.</span></p>
+	</li>
+	<li aria-level="1" dir="ltr">
+	<p dir="ltr" role="presentation"><span style="font-size:20px;">Players must register and play under their real name (specifically not an alias, pseudonym or nickname) and must provide accurate contact details.</span></p>
+	</li>
+	<li aria-level="1" dir="ltr">
+	<p dir="ltr" role="presentation"><span style="font-size:20px;">We expect players to be sporting and courteous in dealings with opponents, tennis centres and their officials and us as organisers and our partner organisations, and we reserve the right to remove players who are not.</span></p>
+	</li>
+	</ul>
+</div>
+
+<div class="row">
+	{% load static %}
+	<img src="{% static 'images/tennis1.webp' %}" alt="tennis1">
+</div>
+
+{% endblock content %}

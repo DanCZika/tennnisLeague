@@ -19,7 +19,7 @@
 		<!-- #cd480e -->
 		<nav class="navbar navbar-expand-sm navbar-dark bg-primary ">
 			<div class="container">
-		  <a class="navbar-brand" href="#">Alburry Tennis<br>League </a>
+		  <a class="navbar-brand" href="#">Aberdeen Tennis<br>League </a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
@@ -28,41 +28,9 @@
 		      <li class="nav-item">
 		        <a class="nav-link" href="{% url 'index' %}">Home</a>
 		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="{% url 'current_round' %}">Current Round</a>
-		      </li>
-		      <li class="nav-item">
+			  <li class="nav-item">
 		        <a class="nav-link" href="{% url 'rules' %}">Rules</a>
 		      </li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Report Score</a>
-					</li>
-					{% if user.is_authenticated %}
-					<li class="nav-item mx-3 ">
-						<a class="nav-link" href="#">Player info</a>
-					</li>
-					{% endif %}
-				</ul>
-				<ul class="navbar-nav ml-auto">
-					{% if user.is_authenticated %}
-					<li class="nav-item mx-3 ">
-						<a class="nav-link" href="#">Welcome: {{ user.get_username }}</a>
-					</li>
-					<li class="nav-item">
-						<!-- <a class="nav-link" href="{% url 'logout' %}">Log Out</a> -->
-						<form class="logout_link " action="{% url 'logout' %}" method="post">
-							{% csrf_token %}
-							<button type="submit" name="button" class="btn btn-secondary btn-sm">Logout</button>
-						</form>
-					</li>
-					{% else %}
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'register' %}">Register</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'login' %}">Log In</a>
-					</li>
-					{% endif %}
 		    </ul>
 		  </div>
 		</div>
