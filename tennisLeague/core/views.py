@@ -1,3 +1,4 @@
+import pdb
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -55,6 +56,8 @@ def logout_view(request):
 # @login_required
 
 def profile(request):
-
-    args = {'user' : request.user}
+    user  = request.user
+    playerdata = user.playerdata
+    # pdb.set_trace()
+    args = {'user' : user, 'playerdata' : playerdata}
     return render(request, 'profile.html', args)
