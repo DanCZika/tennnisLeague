@@ -33,12 +33,24 @@
 		      </li>
 		    </ul>
 			<ul class="navbar-nav ml-auto">
+				{% if user.is_authenticated %}
+				<li class="nav-item mx-3 ">
+					<a class="nav-link" href="#">Welcome: {{ user.get_username }}</a>
+				</li>
+				<li class="nav-item">
+					<form class="logout_link " action="{% url 'logout' %}" method="post">
+						{% csrf_token %}
+						<button type="submit" name="button" class="btn btn-secondary btn-sm">Logout</button>
+					</form>
+				</li>
+				{% else %}
 				<li class="nav-item">
 					<a class="nav-link" href="{% url 'register' %}">Register</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Log In</a>
+					<a class="nav-link" href="{% url 'login' %}">Log In</a>
 				</li>
+				{% endif %}
 			</ul>
 		  </div>
 		</div>

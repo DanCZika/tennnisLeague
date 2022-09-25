@@ -27,3 +27,25 @@ def register(request):
     }
     return render(request, 'register.html', context)
 
+def login_view(request):
+    # return render(request, 'register.html')
+    if request.method == 'POST':
+        print("got the post")
+        form = AuthenticationForm(data = request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('index')
+    else:
+        form = AuthenticationForm()
+    context = {
+        'form':form
+    }
+    return render(request, 'login.html', context)
+
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        print("logging out")
+        return redirect('index')
+
