@@ -33,7 +33,7 @@
 			<ul class="navbar-nav ml-auto">
 				{% if user.is_authenticated %}
 				<li class="nav-item mx-3 ">
-					<a class="nav-link" href="{% url 'profile' %}">Welcome: {{ user.get_username }}</a>
+					<a class="nav-link" href="{% url 'view_profile' %}">Welcome: {{ user.get_username }}</a>
 				</li>
 				<li class="nav-item">
 					<form class="logout_link " action="{% url 'logout' %}" method="post">
