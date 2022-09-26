@@ -1,4 +1,7 @@
+from bdb import set_trace
+import bdb
 import pdb
+from readline import insert_text
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
@@ -6,6 +9,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import PlayerData
+from .forms import EditProfileForm, EditPhoneNumber
 
 # Create your views here.
 def index(request):
@@ -63,14 +67,15 @@ def view_profile(request):
 
 @login_required
 def edit_profile(request):
+    user  = request.user
+    playerdata = user.playerdata
     if request.method == 'POST':
-        form = UserChangeForm(request.POST, instance = request.user)
-
+        form = EditProfileForm(request.POST, instance = user)
         if form.is_valid:
             form.save()
             return redirect('view_profile')
 
     else:
-        form = UserChangeForm(instance = request.user)
+        form = EditProfileForm(instance = user)
         args = {'form' : form}
         return render(request, 'edit_profile.html', args)
