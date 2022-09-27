@@ -13,7 +13,4 @@ class EditProfileForm(UserChangeForm):
         )
 
 class EditPhoneNumber(forms.Form):
-
-    class Meta:
-        model = PlayerData
-        fields = ('phone_number',)
+    phone_number = forms.CharField(label='Your new phone number:', max_length=100)  
