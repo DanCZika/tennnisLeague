@@ -87,7 +87,6 @@ def edit_phonenumber(request):
     if request.method == 'POST':
         form = EditPhoneNumber(request.POST)
         if form.is_valid():
-            # pdb.set_trace()
             playerdata.phone_number = form.cleaned_data['phone_number']
             playerdata.save()
             return redirect('view_profile')
