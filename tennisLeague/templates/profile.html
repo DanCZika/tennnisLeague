@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+	<div class="row mt-5">
+		<h1>Your player profile</h1>
+	</div>
+    <div class="row">
+        <ul>
+            <li>Username: {{ user }}</li>
+            <li>firstname: {{ user.first_name }}</li>
+            <li>lastname: {{ user.last_name }}</li>
+            <li>e-mail: {{ user.email }}</li>
+            <li>phone number: {{playerdata.phone_number}}</li>
+        </ul>
+    </div>
+    <div class="row">
+        <a class="btn btn-primary btn-lg active" href="{% url 'edit_profile' %}">Edit profile</a>
+        <a class="btn btn-primary btn-lg active ml-2" href="{% url 'edit_phonenumber' %}">Edit phonenumber</a>
+    </div>
+</div>
+
+{% endblock content %}

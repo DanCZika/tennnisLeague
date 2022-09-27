@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+	<div class="row mt-5">
+		<h1>Edit your player profile</h1>
+	</div>
+    <div class="row">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-primary" >Submit change</button>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
