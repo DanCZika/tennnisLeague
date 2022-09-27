@@ -25,7 +25,6 @@ def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            pdb.set_trace()
             form.save()          
             messages.info(request, 'Your registration was successful!')
             return redirect('index') #change it to login once implemented
