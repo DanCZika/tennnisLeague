@@ -79,3 +79,20 @@ def edit_profile(request):
         form = EditProfileForm(instance = user)
         args = {'form' : form}
         return render(request, 'edit_profile.html', args)
+
+@login_required
+def edit_phonenumber(request):
+    user  = request.user
+    playerdata = user.playerdata
+    if request.method == 'POST':
+        form = EditPhoneNumber(request.POST)
+        if form.is_valid():
+            # pdb.set_trace()
+            playerdata.phone_number = form.cleaned_data['phone_number']
+            playerdata.save()
+            return redirect('view_profile')
+
+    else:
+        form = EditPhoneNumber()
+        args = {'form' : form}
+        return render(request, 'edit_profile.html', args)
