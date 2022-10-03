@@ -12,7 +12,9 @@ class PlayerData(models.Model):
     )
 
     phone_number = models.CharField(max_length=20)
-    active = models.BooleanField()
+    active = models.BooleanField(default=False)
+    win_count = models.IntegerField(default=0, null=True, blank=True)
+    lose_count = models.IntegerField(default=0, null=True, blank=True)
     wins = models.IntegerField(default=0)
     runnerups = models.IntegerField(default=0) 
 
@@ -23,7 +25,7 @@ class PlayerData(models.Model):
 class Round(models.Model):
     """docstring for ."""
     name = models.CharField(max_length=50)
-    active = models.BooleanField()
+    active = models.BooleanField(default=False)
     description = models.CharField(max_length=252)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)

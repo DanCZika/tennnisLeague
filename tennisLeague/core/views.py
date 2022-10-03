@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import PlayerData
 from .forms import EditProfileForm, EditPhoneNumber
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 def index(request):
@@ -24,7 +25,7 @@ def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
+            form.save()          
             messages.info(request, 'Your registration was successful!')
             return redirect('index') #change it to login once implemented
 
@@ -43,6 +44,15 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
+            #Check if the corresponding Playerdata exists, if not create
+            try:
+                playerdata = PlayerData.objects.get(pk = request.user.pk)
+            except ObjectDoesNotExist:
+                # pdb.set_trace()
+                playerdata = PlayerData(pk = request.user.pk )
+                playerdata.save()
+
+
             return redirect('index')
     else:
         form = AuthenticationForm()
@@ -87,7 +97,6 @@ def edit_phonenumber(request):
     if request.method == 'POST':
         form = EditPhoneNumber(request.POST)
         if form.is_valid():
-            # pdb.set_trace()
             playerdata.phone_number = form.cleaned_data['phone_number']
             playerdata.save()
             return redirect('view_profile')

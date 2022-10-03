@@ -14,6 +14,15 @@
             <li>phone number: {{playerdata.phone_number}}</li>
         </ul>
     </div>
+    <div class="row mt-5">
+		<h2>Match statistcs</h2>
+	</div>
+    <div class="row">
+        <ul>
+            <li>Wins: {{playerdata.win_count}}</li>
+            <li>Loses: {{playerdata.lose_count}}</li>
+        </ul>
+    </div>
     <div class="row">
         <a class="btn btn-primary btn-lg active" href="{% url 'edit_profile' %}">Edit profile</a>
         <a class="btn btn-primary btn-lg active ml-2" href="{% url 'edit_phonenumber' %}">Edit phonenumber</a>

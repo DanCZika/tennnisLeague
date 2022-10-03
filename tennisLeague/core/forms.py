@@ -10,6 +10,7 @@ class EditProfileForm(UserChangeForm):
         fields = (
             'first_name',
             'last_name',
+            'email',
         )
 
 class EditPhoneNumber(forms.Form):
