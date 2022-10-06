@@ -100,7 +100,6 @@ def edit_phonenumber(request):
             playerdata.phone_number = form.cleaned_data['phone_number']
             playerdata.save()
             return redirect('view_profile')
-
     else:
         form = EditPhoneNumber()
         args = {'form' : form}
