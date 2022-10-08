@@ -6,11 +6,11 @@
 		<h1>Edit your player profile</h1>
 	</div>
     <div class="row">
+        {% load bootstrap3 %}
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            {{ form2.as_p }}
-            <button type="submit" class="btn-primary" >Submit change</button>
+            {% bootstrap_form form %}
+            <button type="submit" class="btn btn-primary" >Submit change</button>
         </form>
     </div>
 </div>

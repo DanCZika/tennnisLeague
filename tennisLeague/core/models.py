@@ -16,7 +16,7 @@ class PlayerData(models.Model):
     win_count = models.IntegerField(default=0, null=True, blank=True)
     lose_count = models.IntegerField(default=0, null=True, blank=True)
     wins = models.IntegerField(default=0)
-    runnerups = models.IntegerField(default=0) 
+    runnerups = models.IntegerField(default=0)
 
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
@@ -45,7 +45,7 @@ class Entry(models.Model):
 
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
-        return self.player
+        return str(self.player.last_name)
 
 class Match(models.Model):
     """docstring for ."""

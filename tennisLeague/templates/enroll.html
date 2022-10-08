@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+	<h2>Aberdeen Tennis League - Singles Round 1</h1>
+</div>
+<div class="row mt-2">
+   <h3>Start date: 17/10/2022</h3>
+</div>
+<div class="row mt-2">
+   <h3>End date: 21/11/2022</h3>
+</div>
+{% if profileOK %}
+   {% if enrolled %}
+   <div class="row mt-2">
+      <p>You have already registered for the current round</p>
+   </div>
+   <div class="row mt-2">
+      <div class = "login">
+         <form method="post" >
+         {% csrf_token %}
+         <input type="submit" name="submit" class="btn btn-danger btn-lg" value="Withdraw" />
+         </form>
+      </div>
+   </div>
+   {% else %}
+
+   <div class="row mt-2">
+      <div class = "login">
+         <form method="post" >
+         {% csrf_token %}
+         <input type="submit" name="submit" class="btn btn-success btn-lg" value="Sign up" />
+         </form>
+      </div>
+   </div>
+   {% endif %}
+
+{% else %}
+<div class="row mt-5">
+   <h3 style="color:red;">To sign up to the round first please complete your player profile</h3>
+</div>
+{% endif %}
+
+{% endblock content %}

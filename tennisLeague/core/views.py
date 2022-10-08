@@ -1,6 +1,5 @@
 from bdb import set_trace
 import bdb
-import pdb
 from readline import insert_text
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -8,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, User
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import PlayerData
+from .models import PlayerData, Entry
 from .forms import EditProfileForm, EditPhoneNumber
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -25,9 +24,9 @@ def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()          
+            form.save()
             messages.info(request, 'Your registration was successful!')
-            return redirect('index') #change it to login once implemented
+            return redirect('success') #change it to login once implemented
 
     else:
         form = UserCreationForm()
@@ -35,6 +34,9 @@ def register(request):
         'form':form
     }
     return render(request, 'register.html', context)
+
+def success(request):
+    return render(request, 'success.html')
 
 def login_view(request):
     # return render(request, 'register.html')
@@ -51,7 +53,6 @@ def login_view(request):
                 # pdb.set_trace()
                 playerdata = PlayerData(pk = request.user.pk )
                 playerdata.save()
-
 
             return redirect('index')
     else:
@@ -100,7 +101,50 @@ def edit_phonenumber(request):
             playerdata.phone_number = form.cleaned_data['phone_number']
             playerdata.save()
             return redirect('view_profile')
+
     else:
         form = EditPhoneNumber()
         args = {'form' : form}
         return render(request, 'edit_profile.html', args)
+
+@login_required
+def enter_round(request):
+    user  = request.user
+    playerdata = user.playerdata
+    #if they havent submitted personal info redirect to page
+    #should be revritten to be more clear
+    profileOK = 1
+    if user.first_name == '' or user.last_name == '' or user.email == '' or playerdata.phone_number == '':
+        profileOK = 0
+    #code to run if profile is complete
+    #check if enrolled
+    enrolled = 0
+
+    if len(Entry.objects.filter(player = request.user.pk)) != 0:
+        enrolled = 1
+    else:
+        # pdb.set_trace()
+        enrolled = 0
+
+    if request.method == 'POST' and enrolled == 0:
+        #create Entry
+        enrollment = Entry(player = request.user)
+        enrollment.save()
+        return redirect('enrolled')
+
+
+    elif request.method == 'POST' and enrolled == 1:
+        Entry.objects.filter(player = request.user.pk).delete()
+        return redirect('unenrolled')
+
+    return render(request, 'enroll.html', {'enrolled' : enrolled, 'profileOK' : profileOK})
+
+def enrolled(request):
+    return render(request, 'enrolled.html')
+
+def unenrolled(request):
+    return render(request, 'unenrolled.html')
+
+def show_score(request):
+    playerno = len(Entry.objects.all())
+    return render(request, 'show_score.html', {'player_no' : playerno})
