@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+	<h1>Register to Aberdeen tenis league</h1>
+</div>
+{% load bootstrap3 %}
+<div class = "login">
+	<form method="post" >
+	{% csrf_token %}
+	{% bootstrap_form form %}
+	<input type="submit" name="submit" class="btn btn-primary" value="Register" />
+	</form>
+</div>
+
+
+{% endblock content %}

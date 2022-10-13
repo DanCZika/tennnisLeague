@@ -8,7 +8,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import PlayerData, Entry
-from .forms import EditProfileForm, EditPhoneNumber
+from .forms import EditProfileForm, EditPhoneNumber, RegistrationForm
 from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
@@ -34,6 +34,20 @@ def register(request):
         'form':form
     }
     return render(request, 'register.html', context)
+
+def reg_form(request):
+    if request.method =='POST':
+        form = RegistrationForm(request.POST)
+        set_trace()
+        if form.is_valid():
+            form.save()
+            return redirect('success')
+    else:
+        form = RegistrationForm()
+
+    args = {'form': form}
+
+    return render(request, 'reg_form.html', args)
 
 def success(request):
     return render(request, 'success.html')
