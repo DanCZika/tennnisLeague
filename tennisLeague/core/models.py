@@ -1,3 +1,4 @@
+from email.policy import default
 from nis import match
 from django.db import models
 from django.contrib.auth.models import User
@@ -54,16 +55,16 @@ class Match(models.Model):
     """docstring for ."""
     player1  = models.CharField(max_length=255)
     player2  = models.CharField(max_length=255)
-    point1 = models.IntegerField()
-    point1 = models.IntegerField()
+    point1 = models.IntegerField(default = 0, null=True, blank=True)
+    point2 = models.IntegerField(default = 0, null=True, blank=True)
     start_date = models.DateField(null=True, blank=True)
-    court = models.CharField(max_length=255)
-    played = models.BooleanField()
-    score = models.CharField(max_length=20)
+    court = models.CharField(max_length=255,null=True, blank=True)
+    played = models.BooleanField(default = False)
+    score = models.CharField(max_length=20, null=True, blank=True)
 
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
-        return str(str(player1) + " - " +str(player2))
+        return str(str(self.player1) + " - " +str(self.player2))
 
 class MatchEntry(models.Model):
     """docstring for ."""
