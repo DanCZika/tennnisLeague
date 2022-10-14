@@ -29,8 +29,8 @@ class Round(models.Model):
     description = models.CharField(max_length=252)
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
-    winner = models.CharField(max_length=255)
-    runnerup = models.CharField(max_length=255)
+    winner = models.CharField(max_length=255,null=True, blank=True)
+    runnerup = models.CharField(max_length=255,null=True, blank=True)
 
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
@@ -42,10 +42,13 @@ class Entry(models.Model):
     round = models.ForeignKey(Round, on_delete=models.SET_NULL, null=True, blank=True)
     score = models.IntegerField(default = 0)
     matches_played = models.IntegerField(default = 0)
+    matches_won = models.IntegerField(default = 0)
+    matches_lost = models.IntegerField(default = 0)
+    bonus = models.IntegerField(default = 0)
 
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
-        return str(self.player.last_name)
+        return str(self.player.first_name) + ' ' + str(self.player.last_name)
 
 class Match(models.Model):
     """docstring for ."""

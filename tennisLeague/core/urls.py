@@ -14,5 +14,5 @@ urlpatterns = [
     path('enroll', views.enter_round, name='enter_round'),
     path('enrolled', views.enrolled, name='enrolled'),
     path('unenrolled', views.unenrolled, name='unenrolled'),
-    path('score', views.show_score, name='show_score'),
+    path('score', views.show_score_active, name='show_score'),
 ]

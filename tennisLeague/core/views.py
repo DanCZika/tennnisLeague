@@ -1,15 +1,18 @@
 from bdb import set_trace
 import bdb
+import pdb
 from readline import insert_text
+from unicodedata import name
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import PlayerData, Entry
+from .models import PlayerData, Entry, Round
 from .forms import EditProfileForm, EditPhoneNumber, RegistrationForm
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist   
 
 # Create your views here.
 def index(request):
@@ -162,3 +165,15 @@ def unenrolled(request):
 def show_score(request):
     playerno = len(Entry.objects.all())
     return render(request, 'show_score.html', {'player_no' : playerno})
+
+def show_score_active(request):
+    ### The view to show after the round started###
+    #First log the entries and pass them into the return arg
+    CURRENT_ROUND = 'Round 1'
+    round = Round.objects.get(name = CURRENT_ROUND)
+    #filter and order the by score
+    players = Entry.objects.filter(round = round).order_by('-score')
+    # pdb.set_trace()
+    args = {'players' : players }
+    playerno = len(Entry.objects.all())
+    return render(request, 'show_score_active.html', args)
