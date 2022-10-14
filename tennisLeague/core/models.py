@@ -55,8 +55,7 @@ class Match(models.Model):
     """docstring for ."""
     player1  = models.CharField(max_length=255)
     player2  = models.CharField(max_length=255)
-    point1 = models.IntegerField(default = 0, null=True, blank=True)
-    point2 = models.IntegerField(default = 0, null=True, blank=True)
+    round = models.ForeignKey(Round, on_delete=models.SET_NULL, null=True, blank=True)
     start_date = models.DateField(null=True, blank=True)
     court = models.CharField(max_length=255,null=True, blank=True)
     played = models.BooleanField(default = False)

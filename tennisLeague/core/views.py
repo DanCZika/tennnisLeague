@@ -10,7 +10,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, User
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import PlayerData, Entry, Round
+from .models import Match, PlayerData, Entry, Round
 from .forms import EditProfileForm, EditPhoneNumber, RegistrationForm
 from django.core.exceptions import ObjectDoesNotExist   
 
@@ -174,6 +174,9 @@ def show_score_active(request):
     #filter and order the by score
     players = Entry.objects.filter(round = round).order_by('-score')
     # pdb.set_trace()
-    args = {'players' : players }
+    #filter matches
+    matches = Match.objects.filter(round = round , played = True).order_by('start_date')
+
+    args = {'players' : players, 'matches' :  matches}
     playerno = len(Entry.objects.all())
     return render(request, 'show_score_active.html', args)
