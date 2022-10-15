@@ -169,14 +169,18 @@ def show_score(request):
 def show_score_active(request):
     ### The view to show after the round started###
     #First log the entries and pass them into the return arg
-    CURRENT_ROUND = 'Round 1'
-    round = Round.objects.get(name = CURRENT_ROUND)
+    CURRENT_ROUND_A = 'Round 1'
+    CURRENT_ROUND_B = 'Demo Round'
+    round_a = Round.objects.get(name = CURRENT_ROUND_A)
+    round_b = Round.objects.get(name = CURRENT_ROUND_B)
     #filter and order the by score
-    players = Entry.objects.filter(round = round).order_by('-score')
+    players_a = Entry.objects.filter(round = round_a).order_by('-score')
+    players_b = Entry.objects.filter( round = round_b).order_by('-score')
     # pdb.set_trace()
     #filter matches
-    matches = Match.objects.filter(round = round , played = True).order_by('start_date')
+    matches_a = Match.objects.filter(round = round_a , played = True).order_by('start_date')
+    matches_b = Match.objects.filter(round = round_b , played = True).order_by('start_date')
 
-    args = {'players' : players, 'matches' :  matches}
+    args = {'players_a' : players_a, 'matches_a' :  matches_a, 'players_b' : players_b, 'matches_b' :  matches_b}
     playerno = len(Entry.objects.all())
     return render(request, 'show_score_active.html', args)
