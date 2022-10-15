@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row mt-5">
+	<h1>Your matches:</h1>
+</div>
+<div class="row">
+	<table class="table">
+	{% for match in  matches %}
+		<tbody>
+			<tr>
+			<td>{{ match }}</td>
+			<td> <button type="button" class="btn btn-primary">Enter Score</button> </td>
+			</tr>
+		</tbody>
+	{% endfor %}
+	</table>
+</div>
+
+
+{% endblock content %}

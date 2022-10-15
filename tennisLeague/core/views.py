@@ -10,9 +10,10 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, User
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import Match, PlayerData, Entry, Round
+from .models import Match, PlayerData, Entry, Round, MatchEntry
 from .forms import EditProfileForm, EditPhoneNumber, RegistrationForm
 from django.core.exceptions import ObjectDoesNotExist   
+
 
 # Create your views here.
 def index(request):
@@ -184,3 +185,33 @@ def show_score_active(request):
     args = {'players_a' : players_a, 'matches_a' :  matches_a, 'players_b' : players_b, 'matches_b' :  matches_b}
     playerno = len(Entry.objects.all())
     return render(request, 'show_score_active.html', args)
+
+@login_required
+def match_list(request):
+    ### make query with all the
+    #query user
+    user  = request.user
+    entry = Entry.objects.filter(player = user)[0]
+    #query MatchEntry
+    match_entry = MatchEntry.objects.filter(player = entry)
+    #don't use this queriset in live
+    match_fk = []
+    if len(match_entry) != 1 or len(match_entry) != 0:
+        for me in match_entry:
+            match_fk.append(me.match_id)
+
+    if len(match_entry) == 1:   
+        match_fk.append(match_entry[0].id)
+
+    match = Match.objects.filter(pk__in = match_fk).filter(played = False)
+    # pdb.set_trace()
+    return render(request, 'match_list.html', {'matches' : match}) 
+
+
+from django.views.generic import View, ListView, TemplateView,DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class MatchListView(LoginRequiredMixin, ListView):
+    model = Match

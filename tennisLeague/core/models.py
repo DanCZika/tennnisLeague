@@ -72,4 +72,4 @@ class MatchEntry(models.Model):
 
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
-        return str(match)
+        return  str(self.player) + "---" + str(self.match)
