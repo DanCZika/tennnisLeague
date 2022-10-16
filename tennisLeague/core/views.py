@@ -11,7 +11,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Match, PlayerData, Entry, Round, MatchEntry
-from .forms import EditProfileForm, EditPhoneNumber, RegistrationForm
+from .forms import EditProfileForm, EditPhoneNumber, RegistrationForm,SubmitMatchScoreForm
 from django.core.exceptions import ObjectDoesNotExist   
 
 
@@ -207,6 +207,28 @@ def match_list(request):
     # pdb.set_trace()
     return render(request, 'match_list.html', {'matches' : match}) 
 
+from django.shortcuts import get_object_or_404
+import datetime
+
+@login_required
+def edit_score(request, pk):
+    #match = Match.objects.get(pk = pk)
+    match = get_object_or_404(Match, pk = pk)
+    if request.method == 'POST':
+        form = SubmitMatchScoreForm(request.POST)
+        if form.is_valid():
+            match.score = form.cleaned_data['score']
+            match.court = form.cleaned_data['court']
+            match.start_date = datetime.datetime.now()
+            match.played = True
+            match.save()
+            return redirect('show_score')
+
+    else:
+        form = SubmitMatchScoreForm()
+    
+    args = {'form' : form, 'match' : match } 
+    return render(request, 'edit_score.html', args)
 
 from django.views.generic import View, ListView, TemplateView,DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView

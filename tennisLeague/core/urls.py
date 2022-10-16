@@ -1,6 +1,7 @@
 from core import views
 from django.urls import path
 
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('rules', views.rules, name='rules'),
@@ -16,4 +17,5 @@ urlpatterns = [
     path('unenrolled', views.unenrolled, name='unenrolled'),
     path('score', views.show_score_active, name='show_score'),
     path('matchlist', views.match_list, name='match_list'),
+    path('editscore/<int:pk>', views.edit_score, name='edit_score'),
 ]

@@ -11,7 +11,7 @@
 		<tbody>
 			<tr>
 			<td>{{ match }}</td>
-			<td> <button type="button" class="btn btn-primary">Enter Score</button> </td>
+			<td> <a class="btn btn-primary" href="{% url 'edit_score' match.id %}" role="button">Enter Score</a></td>
 			</tr>
 		</tbody>
 	{% endfor %}

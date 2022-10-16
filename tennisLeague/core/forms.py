@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UserChangeForm
-from .models import PlayerData
+from .models import PlayerData, Match
 
 
 class EditProfileForm(UserChangeForm):
@@ -47,3 +47,8 @@ class RegistrationForm(UserCreationForm):
             playerdata.save()
 
         return user
+
+class SubmitMatchScoreForm(forms.Form):
+    # start_date = forms.DateField(label='Date of the match:')
+    court = forms.CharField(label='The court the match was played on:', max_length=100)
+    score = forms.CharField(label='Score:', max_length=100)
