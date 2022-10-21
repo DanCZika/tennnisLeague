@@ -1,5 +1,5 @@
 from bdb import set_trace
-import bdb
+from os import uname
 import pdb
 from readline import insert_text
 from unicodedata import name
@@ -229,6 +229,45 @@ def edit_score(request, pk):
     
     args = {'form' : form, 'match' : match } 
     return render(request, 'edit_score.html', args)
+
+from .forms import ReportScoreForm
+
+@login_required
+def report_score(request):
+    user  = request.user
+    u_name = str(user.first_name)[0] + '. '+ str(user.last_name)
+    
+    if request.method == 'POST':
+        form = ReportScoreForm(request.POST)
+        if form.is_valid():
+            player1 = u_name
+            player2 = form.cleaned_data['player2']
+            court = form.cleaned_data['court']
+            round_name = form.cleaned_data['round']
+            round = get_object_or_404(Round, name = round_name) #Round.objects.get(name = round_name)
+            score = form.cleaned_data['score']
+            start_date = datetime.datetime.now()
+            played = True
+            match = Match(
+                player1 = player1,
+                player2 = player2,
+                court = court,
+                score = score,
+                start_date = start_date,
+                played = played,
+                round = round,
+                )
+            match.save()
+
+            return redirect('show_score')
+
+    else:
+        form = ReportScoreForm()
+    # pdb.set_trace()
+    args = {'form' : form, 'u_name' : u_name}
+    return render(request, 'report_score.html', args)
+
+
 
 from django.views.generic import View, ListView, TemplateView,DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView

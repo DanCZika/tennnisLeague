@@ -18,4 +18,5 @@ urlpatterns = [
     path('score', views.show_score_active, name='show_score'),
     path('matchlist', views.match_list, name='match_list'),
     path('editscore/<int:pk>', views.edit_score, name='edit_score'),
+    path('reportscore', views.report_score, name='report_score'),
 ]

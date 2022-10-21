@@ -59,7 +59,7 @@ class Match(models.Model):
     start_date = models.DateField(null=True, blank=True)
     court = models.CharField(max_length=255,null=True, blank=True)
     played = models.BooleanField(default = False)
-    score = models.CharField(max_length=20, null=True, blank=True)
+    score = models.CharField(max_length=30, null=True, blank=True)
 
     def __str__(self):
         """String for representing the Model object (in Admin site etc.)"""
