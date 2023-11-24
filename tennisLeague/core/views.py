@@ -12,7 +12,6 @@ from .models import PlayerData
 from .forms import EditProfileForm, EditPhoneNumber
 from django.core.exceptions import ObjectDoesNotExist
 
-#change
 # Create your views here.
 def index(request):
     my_dict = {'insert_me': "inserted text"}
